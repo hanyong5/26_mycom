@@ -98,6 +98,8 @@ INSERT INTO storage.buckets (id, name, public) VALUES ('avatars', 'avatars', tru
 -- 1차: phone · zipcode · address1 · address2 메타데이터 지원
 -- 2차: new.email → profiles.email 자동 저장 (이메일 중복확인 지원)
 create or replace function public.handle_new_user() ...
+
+
 ```
 
 ---
