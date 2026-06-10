@@ -1,0 +1,89 @@
+import { supabase } from '../lib/supabase'
+
+export async function getPosts({ page = 1, pageSize = 10 } = {}) {
+  const from = (page - 1) * pageSize
+  const to = from + pageSize - 1
+
+  const { data, error, count } = await supabase
+    .from('posts')
+    .select('*, profiles(name), post_likes(count)', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to)
+
+  if (error) throw error
+  return { data, count }
+}
+
+export async function getPost(id) {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*, profiles(name)')
+    .eq('id', id)
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function createPost({ title, content, userId }) {
+  const { data, error } = await supabase
+    .from('posts')
+    .insert({ title, content, user_id: userId })
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function updatePost(id, { title, content }) {
+  const { data, error } = await supabase
+    .from('posts')
+    .update({ title, content })
+    .eq('id', id)
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function deletePost(id) {
+  const { error } = await supabase.from('posts').delete().eq('id', id)
+  if (error) throw error
+}
+
+export async function getLikedPosts(userId) {
+  const { data, error } = await supabase
+    .from('post_likes')
+    .select('created_at, posts(id, title, created_at, profiles(name))')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+  if (error) throw error
+  return data.map(r => ({ ...r.posts, likedAt: r.created_at }))
+}
+
+export async function getPostLikes(postId, userId) {
+  const { data, error } = await supabase
+    .from('post_likes')
+    .select('user_id')
+    .eq('post_id', postId)
+  if (error) throw error
+  return {
+    count: data.length,
+    liked: userId ? data.some(r => r.user_id === userId) : false,
+  }
+}
+
+export async function likePost(postId, userId) {
+  const { error } = await supabase
+    .from('post_likes')
+    .insert({ post_id: postId, user_id: userId })
+  if (error) throw error
+}
+
+export async function unlikePost(postId, userId) {
+  const { error } = await supabase
+    .from('post_likes')
+    .delete()
+    .eq('post_id', postId)
+    .eq('user_id', userId)
+  if (error) throw error
+}

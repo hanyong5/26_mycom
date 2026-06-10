@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-gray-800 bg-gray-50;
+  }
+}
+
+/* Swiper 슬라이드 애니메이션 */
+@keyframes kenBurns {
+  from { transform: scale(1);    }
+  to   { transform: scale(1.08); }
+}
+
+.hero-bg {
+  transform: scale(1.08);
+}
+
+.swiper-slide-active .hero-bg {
+  animation: kenBurns 6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag,
+.hero-title,
+.hero-desc,
+.hero-cta {
+  opacity: 0;
+}
+
+.swiper-slide-active .hero-tag {
+  animation: heroFadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+.swiper-slide-active .hero-title {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+}
+.swiper-slide-active .hero-desc {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+.swiper-slide-active .hero-cta {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+}
+
+/* Swiper 커스텀 */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.3);
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50%;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px !important;
+  font-weight: 700;
+}
+.swiper-pagination-bullet {
+  background: #ffffff;
+  opacity: 0.6;
+}
+.swiper-pagination-bullet-active {
+  background: #ffffff;
+  opacity: 1;
+  width: 24px;
+  border-radius: 4px;
+}
