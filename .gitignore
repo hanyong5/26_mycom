@@ -29,9 +29,3 @@ Thumbs.db
 
 # Vite
 *.local
-
-# claude
-.claude/
-
-
-
