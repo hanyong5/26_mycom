@@ -30,8 +30,7 @@ export default function Login() {
     setLoading(true)
     try {
       await signIn(form)
-      window.dataLayer = window.dataLayer || []
-      window.dataLayer.push({ event: 'login', method: 'email' })
+      gtag('event', 'login', { method: 'email' })
       if (!remember) {
         sessionStorage.setItem('_no_persist', '1')
       } else {
