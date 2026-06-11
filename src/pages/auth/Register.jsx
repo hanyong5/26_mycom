@@ -54,7 +54,10 @@ export default function Register() {
     if (!validate()) return
     setLoading(true)
     try {
-      await signUp({ email: form.email, password: form.password, name: form.name })
+      const data = await signUp({ email: form.email, password: form.password, name: form.name })
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ event: 'sign_up', method: 'email' })
+      gtag('config', import.meta.env.VITE_GA_ID, { user_id: data.user.id })
       toast('회원가입이 완료되었습니다. 이메일을 확인해주세요.', 'success')
       navigate('/')
     } catch (err) {
