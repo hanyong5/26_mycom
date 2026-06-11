@@ -54,6 +54,7 @@ export default function BoardDetail() {
     setLikeLoading(true)
     try {
       next ? await likePost(id, user.id) : await unlikePost(id, user.id)
+      gtag('event', next ? 'like_post' : 'unlike_post', { post_id: id })
     } catch {
       setLiked(!next)
       setLikeCount(c => next ? c - 1 : c + 1)
