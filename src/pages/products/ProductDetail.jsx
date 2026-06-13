@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getProduct } from '../../services/products'
 import { formatDate, formatPrice } from '../../utils/format'
 import Button from '../../components/common/Button'
 
 export default function ProductDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
@@ -39,8 +40,11 @@ export default function ProductDetail() {
           <p className="text-2xl font-bold text-primary">{formatPrice(product.price)}</p>
           <p className="text-gray-600 leading-relaxed">{product.description || '제품 설명이 없습니다.'}</p>
           <p className="text-xs text-gray-400">등록일: {formatDate(product.created_at)}</p>
-          <div className="pt-4">
-            <Link to="/contact/write"><Button size="lg" className="w-full md:w-auto">문의하기</Button></Link>
+          <div className="pt-4 flex flex-col md:flex-row gap-3">
+            <Button size="lg" className="w-full md:w-auto" onClick={() =>
+              navigate('/purchase/complete', { state: { productName: product.name, price: product.price } })
+            }>구매하기</Button>
+            <Link to="/contact/write"><Button size="lg" variant="ghost" className="w-full md:w-auto">문의하기</Button></Link>
           </div>
         </div>
       </div>

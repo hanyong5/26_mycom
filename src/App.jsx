@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound'
 import ProductList from './pages/products/ProductList'
 import ProductDetail from './pages/products/ProductDetail'
 import ProductWrite from './pages/products/ProductWrite'
+import PurchaseComplete from './pages/products/PurchaseComplete'
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
               {/* 제품 */}
               <Route path="/products" element={<ProductList />} />
               <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/purchase/complete" element={<PurchaseComplete />} />
 
               {/* 보호된 라우트 — admin */}
               <Route element={<ProtectedRoute role="admin" />}>
