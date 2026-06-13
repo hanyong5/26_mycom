@@ -28,7 +28,7 @@ export default function ContactWrite() {
     setLoading(true);
     try {
       await createInquiry({ ...form, userId: user.id });
-      gtag("event", "contactus");
+      // gtag("event", "contactus");
       toast("문의가 접수되었습니다.", "success");
       navigate("/contact/my");
     } catch {

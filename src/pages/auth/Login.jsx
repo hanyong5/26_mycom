@@ -30,7 +30,7 @@ export default function Login() {
     setLoading(true);
     try {
       await signIn(form);
-      gtag("event", "login", { method: "email", debug_mode: true });
+      // gtag("event", "login", { method: "email", debug_mode: true });
       if (!remember) {
         sessionStorage.setItem("_no_persist", "1");
       } else {
