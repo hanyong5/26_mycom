@@ -53,8 +53,8 @@ export default function ProductDetail() {
           )}
         </div>
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
-          <p className="text-2xl font-bold text-primary">
+          <h1 className="text-3xl font-bold text-gray-900 product_name">{product.name}</h1>
+          <p className="text-2xl font-bold text-primary product_price">
             {formatPrice(product.price)}
           </p>
           <p className="text-gray-600 leading-relaxed">
